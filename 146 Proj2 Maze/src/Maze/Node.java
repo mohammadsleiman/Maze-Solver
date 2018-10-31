@@ -6,6 +6,8 @@ public class Node {
 	
 	ArrayList<Node> edge;
 	int Nodevalue;
+	Boolean seen; //Grayed out
+	Boolean done; //Blacked out
 	
 	public Node(int Nodevalue)
 	{
