@@ -8,9 +8,12 @@ public class Node {
 	ArrayList<Node> Neighbors;
 	
 	HashSet<Node> connectedNeighbors;
+	ArrayList<Node> connectedNeighborsList;
 	int Nodevalue;
-	private Boolean seen; //Grayed out
-	private Boolean done; //Blacked out
+	Boolean seen; //Grayed out
+	Boolean done; //Blacked out
+	int discovered;
+	int finished;
 	
 	public Node(int Nodevalue)
 	{
@@ -39,25 +42,30 @@ public class Node {
 	void setConnectedNeighbor(int NeighborsIndex)
 	{
 		connectedNeighbors.add(Neighbors.get(NeighborsIndex)); //We add from list of neighbors our connected neighbors based on NeighborsIndex, the index of our neighbors
-		
+		connectedNeighborsList.add(Neighbors.get(NeighborsIndex));
 	}
 	void setConnectedNeighbor(Node NeighborNode)
 	{
 		connectedNeighbors.add(NeighborNode);
+		connectedNeighborsList.add(NeighborNode);
 	}
 	HashSet<Node> getConnectedNeighbors() //get Neighbors with "broken walls"
 	{
 		return connectedNeighbors;
 	}
-	
-	
-	void setSeenTrue()
+	ArrayList<Node> getConnectedNeighborsList() //get Neighbors with "broken walls"
 	{
-		seen = true;
+		return connectedNeighborsList;
 	}
-	void setDoneTrue()
+	
+	
+	void setSeen(Boolean b)
 	{
-		done = true;
+		seen = b;
+	}
+	void setDone(Boolean b)
+	{
+		done = b;
 	}
 	Boolean Seen()
 	{
@@ -69,6 +77,14 @@ public class Node {
 		return done;
 	}
 	
+	void setDiscovered(int n)
+	{
+		discovered = n;
+	}
+	void setFinished(int m)
+	{
+		finished = m;
+	}
 	
 	
 }

@@ -7,6 +7,7 @@ import java.util.Stack;
 public class Maze {
 	Node[] NodeMaze; //2D array of Nodes (the maze)
 	int Mazesize; //size of Maze ->  Mazesize x Mazesize Nodes
+	public int time;
 	
 	public Maze(int MazeDimension) {
 		
@@ -15,6 +16,7 @@ public class Maze {
 		fillMaze();
 		connectMaze();
 		createMaze();
+		printMaze();
 		
 	}
 	
@@ -84,7 +86,7 @@ public class Maze {
 			System.out.println(current.getVal()  + "      VISITED: " + visited);
 			
 			validNeighbor = false;
-			current.setSeenTrue();
+			current.setSeen(true);
 			
 			randomNeighborIndex = rand.nextInt(current.getNeighbors().size());
 			neighbor = current.getNeighbors().get(randomNeighborIndex);
@@ -112,8 +114,8 @@ public class Maze {
 			
 			current.setConnectedNeighbor(neighbor); //break the walls
 			neighbor.setConnectedNeighbor(current); // between both neighbors
-			neighbor.setSeenTrue();
-			current.setSeenTrue();
+			neighbor.setSeen(true);
+			current.setSeen(true);
 			current = neighbor;
 			neighbor = null;
 			
@@ -129,6 +131,56 @@ public class Maze {
 		
 		
 	}
+	
+	
+	
+	void DepthFirstSearch()
+	{
+		unSeeMaze();
+		time = 0;
+		for(int i = 0; i< Mazesize; i++)
+		{
+			if(!(NodeMaze[i]).Seen())
+			{
+				DepthFirstSearchVisit(NodeMaze[i]);
+				
+			}
+		}
+		
+	}
+	
+	void DepthFirstSearchVisit(Node n)
+	{
+		n.setSeen(true);
+	    time++;
+	    n.setDiscovered(time);
+	    for(int i = 0; i<n.getConnectedNeighborsList().size(); i++)
+	    {
+	    	if(!n.getConnectedNeighborsList().get(i).Seen())
+	    	{
+	    		DepthFirstSearchVisit(n.getConnectedNeighborsList().get(i));
+	    	}
+	    }
+	    
+	    n.setDone(false);
+	    time++;
+	    n.setFinished(time);
+		
+	}
+	
+	void unSeeMaze() //make all nodes 'not visited yet'
+	{
+
+		for(int i = 0; i < Mazesize; i++)
+		{
+			NodeMaze[i].setSeen(false);
+			NodeMaze[i].setDone(false);
+			NodeMaze[i].setDiscovered(-1);
+			NodeMaze[i].setFinished(-1);
+		}
+	}
+	
+	
 	
 	void printMaze()
 	{
@@ -271,11 +323,12 @@ public class Maze {
 	}
 	
 	
+	
 	public static void main(String[]args)
 	{ 
 		
 		Maze m1 = new Maze(4);
-		m1.printMaze();
+
 		System.out.println("program ended");
 		
 	}
