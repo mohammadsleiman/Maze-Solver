@@ -7,10 +7,12 @@ import java.util.Stack;
 public class Maze {
 	Node[] NodeMaze; //2D array of Nodes (the maze)
 	int Mazesize; //size of Maze ->  Mazesize x Mazesize Nodes
+	int MazeDimension;
 	public int time;
 	
 	public Maze(int MazeDimension) {
 		
+		this.Mazesize = MazeDimension;
 		Mazesize = MazeDimension * MazeDimension;
 		NodeMaze = new Node[Mazesize];
 		fillMaze();
@@ -318,6 +320,61 @@ public class Maze {
 		
 			
 			
+		
+		
+	}
+	
+	void printAnySize()
+	{
+		int printHeight = (MazeDimension*2)+1;
+		int MazeIndex = 0;
+		int tempIndex = 0;
+		String[] MazeString = new String[(MazeDimension*2)+1];
+		String rightWall = " |";
+		String wall = "|";
+		String noWall = "  ";
+		String Floor = "+-";
+		String noFloor = "+ ";
+		String endCap = "+";
+		String Opening = "+ +";
+		String rightOpening = " +";
+		String rightClosing = "-+";
+		String leftClosing = "+-";
+		Boolean Horizontal = false;
+	
+		/** Top Opening for Maze **/
+		MazeString[0] = Opening;
+		for(int n = 1; n< MazeDimension-1; n++)
+		{
+			MazeString[0] = MazeString[0] + rightClosing;
+		}
+		
+		/** Bottom Opening **/
+		for(int m = 0; m<MazeDimension -1; m++)
+		{
+			MazeString[printHeight -1] = MazeString[printHeight -1] + leftClosing;
+		}
+		MazeString[printHeight -1 ] = MazeString[printHeight -1] + Opening;
+		
+		/** Maze Left Boundary**/
+		for(int o = 1; o< printHeight -2; o++)
+		{
+			MazeString[o]= "|";
+		}
+		
+		
+		/** Inside The Maze **/
+		for(int i = 1; i < printHeight-1; i++)
+		{
+			for(int j = 0; j<MazeDimension-1; j++)
+			{
+				if(i%2 == 1 || i == 1) //if we are in Horizontal Mode
+				{
+					
+				}
+			}
+			
+		}
 		
 		
 	}
