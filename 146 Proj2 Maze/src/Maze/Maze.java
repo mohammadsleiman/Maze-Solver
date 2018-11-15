@@ -1,38 +1,271 @@
 package Maze;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Stack;
 
 public class Maze {
-	Node[][] NodeMaze; //2D array of Nodes (the maze)
-	int Mazesize; //size of Maze Mazesize x Mazesize
+	Node[] NodeMaze; //2D array of Nodes (the maze)
+	int Mazesize; //size of Maze ->  Mazesize x Mazesize Nodes
 	
-	public Maze(int Mazesize) {
+	public Maze(int MazeDimension) {
 		
-		this.Mazesize = Mazesize;
-		NodeMaze = new Node[Mazesize][Mazesize];
+		Mazesize = MazeDimension * MazeDimension;
+		NodeMaze = new Node[Mazesize];
+		fillMaze();
+		connectMaze();
+		createMaze();
 		
-		int Nodevalue = 0;
+	}
+	
+	void fillMaze() //Initializes Nodes of Maze
+	{
+		int Nodevalue = 1; //NODE VALUES RANGE IS (1 TO MAZESIZE)
 		for(int i = 0; i< Mazesize; i++)
 		{
-			for(int j = 0; j< Mazesize; j++)
-			{
-				NodeMaze[i][j] = new Node(Nodevalue);
-				Nodevalue++;
-			}
+			NodeMaze[i] = new Node(Nodevalue);
+			Nodevalue++;
+			
 		}
+	}
+	
+	void connectMaze() //Stores Neighboring Nodes (Shared Maze walls) in each Node
+	{
+		int NodeVal; //NodeVal is 1 more than NodeVal's Index (NodeVal starts at 1 vs NodeVal's NodeMaze Index starts at 0)
+		int NeighborVal; //NeighborVal is 1 more than NeighborVal's Index
+		for(int i = 0; i<Mazesize; i++) //WILL BREAK IF NODE VALUES RANGE CHANGES (Range 1 to MazeSize)
+		{
+			NodeVal = NodeMaze[i].getVal();
+			if(NodeVal > 4) //Finds Above Neighbor
+			{
+				NeighborVal = NodeVal - 4;
+				NodeMaze[i].addNeighbor(NodeMaze[NeighborVal -1]);
+			}
+			if(NodeVal < 13) //Finds Below Neighbor
+			{
+				NeighborVal = NodeVal + 4;
+				NodeMaze[i].addNeighbor(NodeMaze[NeighborVal -1]);
+			}
+			if((NodeVal % 4) != 0) //Finds Right Neighbor
+			{
+				NeighborVal= NodeVal + 1;
+				NodeMaze[i].addNeighbor(NodeMaze[NeighborVal -1]);
+			}
+			if((((NodeVal-1)%4) != 0) && (NodeVal != 1)) //Finds Left Neighbor
+			{
+				NeighborVal = NodeVal - 1;
+				NodeMaze[i].addNeighbor(NodeMaze[NeighborVal -1]);
+			}
+			
+		}
+	}
+	
+	void createMaze() //DFS FUNSIES
+	{
+		int visited = 1;
+		
+		Node current = NodeMaze[0];
+		Node neighbor;
+		int currentVal = current.getVal();
+		
+		Random rand = new Random(0);
+		int randomNeighborIndex;
+		Boolean validNeighbor;
+		
+		Stack nodeStack = new Stack();
+		nodeStack.push(current);
+		
+	
+		
+		//Set<Int> neighborIndexHashSet = new HashSet<Int>(); 
+		
+		while(visited < Mazesize)
+		{
+			System.out.println(current.getVal()  + "      VISITED: " + visited);
+			
+			validNeighbor = false;
+			current.setSeenTrue();
+			
+			randomNeighborIndex = rand.nextInt(current.getNeighbors().size());
+			neighbor = current.getNeighbors().get(randomNeighborIndex);
+
+			
+			while(!validNeighbor)
+			{
+				if(!neighbor.Seen())
+				{
+					validNeighbor = true;
+					visited++;
+				}
+				else if(neighbor.Seen() && current.getConnectedNeighbors().contains(neighbor))
+				{
+					validNeighbor = true;
+				}
+				else
+				{
+					randomNeighborIndex = rand.nextInt(current.getNeighbors().size());
+					neighbor = current.getNeighbors().get(randomNeighborIndex);
+				}
+				//System.out.println("Still running...");
+				
+			}
+			
+			current.setConnectedNeighbor(neighbor); //break the walls
+			neighbor.setConnectedNeighbor(current); // between both neighbors
+			neighbor.setSeenTrue();
+			current.setSeenTrue();
+			current = neighbor;
+			neighbor = null;
+			
+			
+			
+			//if seen, only go if connected neighbor
+			
+			
+			
+			
+		}
+		
+		
 		
 	}
 	
 	void printMaze()
 	{
+		/*
+		String neighbors = "";
 		for(int i = 0; i< Mazesize; i++)
 		{
-			for(int j = 0; j< Mazesize; j++)
+			neighbors = "";
+			for(int j = 0; j<NodeMaze[i].getNeighbors().size(); j++)
 			{
-				System.out.print(NodeMaze[i][j].getVal());
+				neighbors = neighbors + ", " + NodeMaze[i].getNeighbors().get(j).getVal();
 			}
+			System.out.print(NodeMaze[i].getVal() + "   N: " + neighbors);
 			System.out.println("");
 		}
+		*/
+			String UnderLine = "+ +-+-+-+";
+			System.out.println(UnderLine);
+			String MainLine = "| ";
+		    UnderLine = "+";
+			
+			for(int i = 0; i< 4; i++)
+			{
+				if(NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+1]))
+				{
+					MainLine = MainLine + "  ";
+					
+				}
+				else
+				{
+					MainLine = MainLine + "| ";
+				}
+				
+			}
+			
+			for(int i = 0; i< 4;i++)
+			{
+				if(!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+4]))// do not include in last loop
+				{
+					UnderLine = UnderLine + "-";
+				}
+				else
+				{
+					UnderLine = UnderLine + " ";
+				}
+				UnderLine = UnderLine + "+";
+			}
+			System.out.println(MainLine);
+			System.out.println(UnderLine);
+			MainLine = "| ";
+			UnderLine = "+";
+			
+			
+			for(int i = 4; i< 8;i++)
+			{
+				if(NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+1]))
+				{
+					MainLine = MainLine + "  ";
+					
+				}
+				else
+				{
+					MainLine = MainLine + "| ";
+				}
+				
+			}
+			
+			for(int i = 4; i< 8;i++)
+			{
+				if(!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+4]))// do not include in last loop
+				{
+					UnderLine = UnderLine + "-";
+				}
+				else
+				{
+					UnderLine = UnderLine + " ";
+				}
+				
+				UnderLine = UnderLine + "+";
+			}
+			System.out.println(MainLine);
+			System.out.println(UnderLine);
+			MainLine = "| ";
+			UnderLine = "+";
+			
+			for(int i = 8; i< 12;i++)
+			{
+				if(NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+1]))
+				{
+					MainLine = MainLine + "  ";
+					
+				}
+				else
+				{
+					MainLine = MainLine + "| ";
+				}
+				
+			}
+			
+			for(int i = 8; i< 12;i++)
+			{
+				if(!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+4]))// do not include in last loop
+				{
+					UnderLine = UnderLine + "-";
+				}
+				else
+				{
+					UnderLine = UnderLine + " ";
+				}
+				UnderLine = UnderLine + "+";
+			}
+			System.out.println(MainLine);
+			System.out.println(UnderLine);
+			MainLine = "| ";
+			UnderLine = "+";
+			for(int i = 12; i< 15;i++)
+			{
+				if(NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+1]))
+				{
+					MainLine = MainLine + "  ";
+					
+				}
+				else
+				{
+					MainLine = MainLine + "| ";
+				}
+				
+			}
+			MainLine = MainLine + "|";
+			UnderLine = "+-+-+-+ +";
+			
+			System.out.println(MainLine);
+			System.out.println(UnderLine);
+			MainLine = "| ";
+		
+			
+			
 		
 		
 	}
@@ -40,11 +273,11 @@ public class Maze {
 	
 	public static void main(String[]args)
 	{ 
-		/*
+		
 		Maze m1 = new Maze(4);
 		m1.printMaze();
 		System.out.println("program ended");
-		*/
+		
 	}
 	
 }
