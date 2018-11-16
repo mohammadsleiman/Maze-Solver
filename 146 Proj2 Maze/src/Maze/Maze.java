@@ -700,7 +700,6 @@ public class Maze {
 	{ 
 		
 		Maze m1 = new Maze(4);
-
 		System.out.println("program ended");
 		
 	}
