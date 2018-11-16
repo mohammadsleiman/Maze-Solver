@@ -20,6 +20,7 @@ public class Node {
 		this.Nodevalue = Nodevalue;
 		Neighbors = new ArrayList<Node>(); //EDGES or "Shared Walls" with other Nodes
 		connectedNeighbors = new HashSet<Node>(); //EDGES THAT ARE "broken walls" with other Nodes
+		connectedNeighborsList = new ArrayList<Node>(); //Edges that are broken walls
 		seen = false;
 		done = false;
 	}
@@ -84,6 +85,11 @@ public class Node {
 	void setFinished(int m)
 	{
 		finished = m;
+	}
+	
+	int getDiscovered()
+	{
+		return discovered;
 	}
 	
 	

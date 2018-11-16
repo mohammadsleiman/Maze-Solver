@@ -1,6 +1,8 @@
 package Maze;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Stack;
 
@@ -18,6 +20,10 @@ public class Maze {
 		fillMaze();
 		connectMaze();
 		createMaze();
+		DepthFirstSearch();
+		BreadthFirstSearch();
+		printBFS();
+		
 		printMaze();
 		
 	}
@@ -72,7 +78,7 @@ public class Maze {
 		Node neighbor;
 		int currentVal = current.getVal();
 		
-		Random rand = new Random(0);
+		Random rand = new Random(1);
 		int randomNeighborIndex;
 		Boolean validNeighbor;
 		
@@ -151,6 +157,7 @@ public class Maze {
 		
 	}
 	
+	
 	void DepthFirstSearchVisit(Node n)
 	{
 		n.setSeen(true);
@@ -168,6 +175,31 @@ public class Maze {
 	    time++;
 	    n.setFinished(time);
 		
+	}
+	
+	void BreadthFirstSearch()
+	{
+		unSeeMaze();
+		Queue<Node> BFSqueue = new LinkedList<Node>();
+		BFSqueue.add(NodeMaze[0]);
+		Node n = null;
+		while(BFSqueue.size()!=0)
+		{
+			n = BFSqueue.remove();
+			
+			for(int j = 0; j<n.getConnectedNeighborsList().size(); j++)
+			{
+				if(!n.getConnectedNeighborsList().get(j).Seen())
+				{
+					n.getConnectedNeighborsList().get(j).setSeen(true);
+					n.getConnectedNeighborsList().get(j).setDiscovered(n.getDiscovered()+1);
+					NodeMaze[j].setFinished(n.getVal());
+					BFSqueue.add(n.getConnectedNeighborsList().get(j));
+				} 
+
+			}
+
+		}
 	}
 	
 	void unSeeMaze() //make all nodes 'not visited yet'
@@ -324,6 +356,128 @@ public class Maze {
 		
 	}
 	
+	void printBFS()
+	{
+		String UnderLine = "+ +--+--+--+";
+		System.out.println(UnderLine);
+		String MainLine = "|";
+	    UnderLine = "+";
+		
+		for(int i = 0; i< 4; i++)
+		{
+			if(NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+1]))
+			{
+				MainLine = MainLine + NodeMaze[i].getDiscovered() + " ";
+				
+			}
+			else
+			{
+				MainLine = MainLine + NodeMaze[i].getDiscovered() +"| ";
+			}
+			
+		}
+		
+		for(int i = 0; i< 4;i++)
+		{
+			if(!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+4]))// do not include in last loop
+			{
+				UnderLine = UnderLine + "--";
+			}
+			else
+			{
+				UnderLine = UnderLine + "  ";
+			}
+			UnderLine = UnderLine + "+";
+		}
+		System.out.println(MainLine);
+		System.out.println(UnderLine);
+		MainLine = "|";
+		UnderLine = "+";
+		
+		
+		for(int i = 4; i< 8;i++)
+		{
+			if(NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+1]))
+			{
+				MainLine = MainLine + NodeMaze[i].getDiscovered() + " ";
+				
+			}
+			else
+			{
+				MainLine = MainLine + NodeMaze[i].getDiscovered() +"| ";
+			}
+			
+		}
+		
+		for(int i = 4; i< 8;i++)
+		{
+			if(!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+4]))// do not include in last loop
+			{
+				UnderLine = UnderLine + "--";
+			}
+			else
+			{
+				UnderLine = UnderLine + "  ";
+			}
+			
+			UnderLine = UnderLine + "+";
+		}
+		System.out.println(MainLine);
+		System.out.println(UnderLine);
+		MainLine = "|";
+		UnderLine = "+";
+		
+		for(int i = 8; i< 12;i++)
+		{
+			if(NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+1]))
+			{
+				MainLine = MainLine + NodeMaze[i].getDiscovered() + " ";
+				
+			}
+			else
+			{
+				MainLine = MainLine + NodeMaze[i].getDiscovered() +"| ";
+			}
+			
+		}
+		
+		for(int i = 8; i< 12;i++)
+		{
+			if(!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+4]))// do not include in last loop
+			{
+				UnderLine = UnderLine + "-";
+			}
+			else
+			{
+				UnderLine = UnderLine + " ";
+			}
+			UnderLine = UnderLine + "+";
+		}
+		System.out.println(MainLine);
+		System.out.println(UnderLine);
+		MainLine = "|";
+		UnderLine = "+";
+		for(int i = 12; i< 15;i++)
+		{
+			if(NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+1]))
+			{
+				MainLine = MainLine + NodeMaze[i].getDiscovered() + " ";
+				
+			}
+			else
+			{
+				MainLine = MainLine + NodeMaze[i].getDiscovered() +"| ";
+			}
+			
+		}
+		MainLine = MainLine + "|";
+		UnderLine = "+--+--+--+ +";
+		
+		System.out.println(MainLine);
+		System.out.println(UnderLine);
+		MainLine = "| ";
+	
+	}
 	void printAnySize()
 	{
 		int printHeight = (MazeDimension*2)+1;
@@ -340,7 +494,7 @@ public class Maze {
 		String rightOpening = " +";
 		String rightClosing = "-+";
 		String leftClosing = "+-";
-		Boolean Horizontal = false;
+		Boolean firstTime = true;
 	
 		/** Top Opening for Maze **/
 		MazeString[0] = Opening;
@@ -359,26 +513,187 @@ public class Maze {
 		/** Maze Left Boundary**/
 		for(int o = 1; o< printHeight -2; o++)
 		{
-			MazeString[o]= "|";
+			if(o%2 == 1 || o==1)
+			{
+				MazeString[o]= wall;
+			}
+			else
+			{
+				MazeString[o] =  endCap;
+			}
 		}
 		
 		
 		/** Inside The Maze **/
 		for(int i = 1; i < printHeight-1; i++)
 		{
+			tempIndex = MazeIndex;
 			for(int j = 0; j<MazeDimension-1; j++)
 			{
-				if(i%2 == 1 || i == 1) //if we are in Horizontal Mode
+				if(i%2 == 1 || i == 1) //if we are in Vertical Mode
 				{
+					if((MazeIndex < NodeMaze[MazeIndex].getConnectedNeighborsList().size()) && (NodeMaze[MazeIndex].getConnectedNeighbors().contains(NodeMaze[MazeIndex+1])))
+					{
+						MazeString[i] = MazeString[i] + noWall; //When there is no wall
+					}
+					else
+					{
+						MazeString[i] = MazeString[i] +  rightWall; //When there is a wall
+					}
 					
+					MazeIndex++;
 				}
+				if(i%2 == 0) //if we are in Horizontal Mode
+				{
+					if(NodeMaze[MazeIndex].getConnectedNeighbors().contains(NodeMaze[MazeIndex + 4]))
+					{
+						MazeString[i] = MazeString[i] + rightOpening;
+					}
+					else
+					{
+						MazeString[i] = MazeString[i] + rightClosing;
+					}
+					
+					MazeIndex++;
+				}
+				
+			}
+			if(i%2 == 1 || i ==1 ) //ensures second loop for Maze Floor (horizontal Mode)
+			{
+				MazeIndex = tempIndex;
 			}
 			
+		}
+		
+		for(int i = 0; i<MazeString.length; i++)
+		{
+			System.out.println(MazeString[i]);
 		}
 		
 		
 	}
 	
+	void printVals()
+	{
+	String UnderLine = "+ +-+-+-+";
+	System.out.println(UnderLine);
+	String MainLine = "|";
+    UnderLine = "+";
+	
+	for(int i = 0; i< 4; i++)
+	{
+		if(NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+1]))
+		{
+			MainLine = MainLine + NodeMaze[i].getVal() + " ";
+			
+		}
+		else
+		{
+			MainLine = MainLine + NodeMaze[i].getVal() +"| ";
+		}
+		
+	}
+	
+	for(int i = 0; i< 4;i++)
+	{
+		if(!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+4]))// do not include in last loop
+		{
+			UnderLine = UnderLine + "-";
+		}
+		else
+		{
+			UnderLine = UnderLine + " ";
+		}
+		UnderLine = UnderLine + "+";
+	}
+	System.out.println(MainLine);
+	System.out.println(UnderLine);
+	
+	MainLine = "|";
+	UnderLine = "+";
+	for(int i = 4; i< 8;i++)
+	{
+		if(NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+1]))
+		{
+			MainLine = MainLine + NodeMaze[i].getVal() + " ";
+			
+		}
+		else
+		{
+			MainLine = MainLine + NodeMaze[i].getVal() +"| ";
+		}
+		
+	}
+	
+	for(int i = 4; i< 8;i++)
+	{
+		if(!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+4]))// do not include in last loop
+		{
+			UnderLine = UnderLine + "-";
+		}
+		else
+		{
+			UnderLine = UnderLine + " ";
+		}
+		
+		UnderLine = UnderLine + "+";
+	}
+	System.out.println(MainLine);
+	System.out.println(UnderLine);
+	
+	MainLine = "|";
+	UnderLine = "+";
+	
+	for(int i = 8; i< 12;i++)
+	{
+		if(NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+1]))
+		{
+			MainLine = MainLine + NodeMaze[i].getVal() + " ";
+			
+		}
+		else
+		{
+			MainLine = MainLine + NodeMaze[i].getVal() +"| ";
+		}
+		
+	}
+	
+	for(int i = 8; i< 12;i++)
+	{
+		if(!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+4]))// do not include in last loop
+		{
+			UnderLine = UnderLine + "-";
+		}
+		else
+		{
+			UnderLine = UnderLine + " ";
+		}
+		UnderLine = UnderLine + "+";
+	}
+	System.out.println(MainLine);
+	System.out.println(UnderLine);
+	MainLine = "|";
+	UnderLine = "+";
+	for(int i = 12; i< 15;i++)
+	{
+		if(NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i+1]))
+		{
+			MainLine = MainLine + NodeMaze[i].getVal() + " ";
+			
+		}
+		else
+		{
+			MainLine = MainLine + NodeMaze[i].getVal() +"| ";
+		}
+		
+	}
+	MainLine = MainLine + "|";
+	UnderLine = "+-+-+-+ +";
+	
+	System.out.println(MainLine);
+	System.out.println(UnderLine);
+	MainLine = "| ";
+}
 	
 	
 	public static void main(String[]args)
