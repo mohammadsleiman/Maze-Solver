@@ -12,14 +12,6 @@ public class Maze {
 	int MazeDimension;
 	String[] MazeString; // The Array of Strings containing each printable line of our maze
 	public int time;
-
-	public String getMazeString() // Gets the Maze String; for J-Unit purposes
-	{
-		String s = Arrays.toString(MazeString);
-		System.out.println("This is getMazeString: " + s);
-		return s;
-	}
-
 	public Maze(int MazeDimension) // Creates an instance of Maze where you can define its size
 	{
 
@@ -29,7 +21,8 @@ public class Maze {
 		fillMaze();
 		connectMaze();
 		createMaze();
-
+		
+		/*
 		BreadthFirstSearch();
 		printMazeString();
 		createFastestSearchMazeString();
@@ -38,21 +31,7 @@ public class Maze {
 		printMazeString();
 		createFastestSearchMazeString();
 		printMazeString();
-
-		/*
-		 * createFastestSearchMazeString(); printMazeString();
-		 * 
-		 * System.out.println(" ");
-		 * 
-		 * createSearchedMazeString(); BreadthFirstSearch(); printMazeString();
-		 * 
-		 * System.out.println(" ");
-		 * 
-		 * 
-		 * System.out.println(" ");
-		 * 
-		 * DepthFirstSearch();
-		 */
+		*/
 
 	}
 
@@ -128,7 +107,6 @@ public class Maze {
 					randomNeighborIndex = rand.nextInt(current.getNeighbors().size());
 					neighbor = current.getNeighbors().get(randomNeighborIndex);
 				}
-				// System.out.println("Still running...");
 
 			}
 
@@ -197,7 +175,6 @@ public class Maze {
 		}
 
 		createSearchedMazeString();
-		System.out.println("This is MazeString in the BFS CLASSS!!!!!!!!!!!!! : " + getMazeString());
 		return MazeString;
 
 		// String str = Arrays.toString(MazeString);
@@ -251,7 +228,6 @@ public class Maze {
 		/** Inside The Maze and Right Boundary **/
 		for (int i = 1; i < printHeight - 1; i++) {
 			tempIndex = MazeIndex;
-			// System.out.println(MazeIndex);
 			for (int j = 0; j < MazeDimension; j++) {
 				if (MazeIndex < Mazesize - 1) {
 					if (i % 2 == 1 || i == 1) // if we are in Vertical Mode(creating | | |)
@@ -374,7 +350,6 @@ public class Maze {
 		/** Inside The Maze and Right Boundary **/
 		for (int i = 1; i < printHeight - 1; i++) {
 			tempIndex = MazeIndex;
-			// System.out.println(MazeIndex);
 			for (int j = 0; j < MazeDimension; j++) {
 				if (MazeIndex < Mazesize - 1) {
 					if (i % 2 == 1 || i == 1) // if we are in Vertical Mode(creating | | |)
@@ -470,7 +445,6 @@ public class Maze {
 		/** Inside The Maze and Right Boundary **/
 		for (int i = 1; i < printHeight - 1; i++) {
 			tempIndex = MazeIndex;
-			// System.out.println(MazeIndex);
 			for (int j = 0; j < MazeDimension; j++) {
 				if (MazeIndex < Mazesize - 1) {
 					if (i % 2 == 1 || i == 1) // if we are in Vertical Mode(creating | | |)
@@ -521,13 +495,5 @@ public class Maze {
 
 	}
 
-	public static void main(String[] args) {
-
-		Maze m1 = new Maze(4);
-		m1.getMazeString();
-
-		System.out.println("program ended");
-
-	}
 
 }

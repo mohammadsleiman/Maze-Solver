@@ -27,7 +27,6 @@ public class mazeTester {
 		output = program.printMazeString();
 		System.out.println(program.printMazeString());
 		String expected = "+ +-+-+-+ |1 2 3 4| +-+-+-+ + |8 7|6 5| +-+ + +-+ |3|6|7 8| + + +-+ + |2 1 0 9| +-+-+-+ + ";
-		
 		assertEquals(expected, output);
 
 	}
@@ -38,11 +37,8 @@ public class mazeTester {
 		program = new Maze(4); // new maze of size 4
 		program.BreadthFirstSearch();
 		output = program.printMazeString();
-		System.out.println(program.printMazeString());
-          //String expected = "+ +-+-+-+ |0 1 2 3| +-+-+-+ + |   |4 3| +-+ + +-+ | | |5 6| + + +-+ + |    8 7| +-+-+-+ +";
-		String expected = "+ +-+-+-+ |# # # #| +-+-+-+ + |   |# #| +-+ + +-+ | | |# #| + + +-+ + |      #| +-+-+-+ +";
+		String expected = "+ +-+-+-+ |0 1 2 3| +-+-+-+ + |3 2|5 4| +-+ + +-+ |2|1|6 7| + + +-+ + |1 0 9 8| +-+-+-+ + ";
 		assertEquals(expected, output);
-		//String expected = "+ +-+-+-+ |# # # #| +-+-+-+ + |   |# #| +-+ + +-+ | | |# #| + + +-+ + |      #| +-+-+-+ +";
 	}
 
 	@Test
@@ -51,9 +47,7 @@ public class mazeTester {
 		program = new Maze(10); // new maze of size 10
 		program.DepthFirstSearch();
 		output = program.printMazeString();
-		System.out.println(program.printMazeString());
 		String expected = "+ +-+-+-+-+-+-+-+-+-+ |1 2 3 4 7 8 9 0 1 2| +-+-+-+ +-+-+-+ +-+ + |6|1 0|5|8 7|8 7|0|3| + + + +-+-+ + +-+ +-+ |3 2|9 2 3 6|9|0|3 4| + +-+ +-+ +-+ + + + + |4|7 8 5|4|1 0|9 2|5| +-+ +-+ +-+ +-+ +-+ + |5 6|1|6 7|2 7 8|7 6| + +-+ +-+ + +-+-+ +-+ |4 3 0|1|8|3 4|7|8 9| +-+-+ + +-+-+-+ +-+ + |1|0 9|0 9 8|9 6 3 0| + +-+ + +-+ + +-+ + + |0|7 8|3|4 3|0|1|4|1| + + + + + + + + +-+-+ |9 8|3|4|5|2 1|0|9|6| + + +-+ +-+-+-+ + + + |4|7 6 5 6 7 8 9 4 5| +-+-+-+-+-+-+-+-+-+ + ";
-		
 		assertEquals(expected, output);
 
 	}
@@ -64,8 +58,7 @@ public class mazeTester {
 		program = new Maze(10); // new maze of size 10
 		program.BreadthFirstSearch();
 		output = program.printMazeString();
-		System.out.println(program.printMazeString());
-		String expected = "";
+		String expected = "+ +-+-+-+-+-+-+-+-+-+ |0 1 2 3 4 5 6 7 8 9| +-+-+-+ +-+-+-+ +-+ + |7|4 3|4|7 6|9 8|9|0| + + + +-+-+ + +-+ +-+ |6 5|2 3 4 5|0|7|8 9| + +-+ +-+ +-+ + + + + |7|0 1 2|5|2 1|6 7|0| +-+ +-+ +-+ +-+ +-+ + |8 9|6|3 4|3 4 5|2 1| + +-+ +-+ + +-+-+ +-+ |7 6 5|6|5|4 5|8|3 4| +-+-+ + +-+-+-+ +-+ + |4|5 4|5 4 3|8 7 6 5| + +-+ + +-+ + +-+ + + |3|2 3|6|3 2|9|4|7|6| + + + + + + + + +-+-+ |2 1|4|7|4|1 0|3|4|5| + + +-+ +-+-+-+ + + + |3|0 9 8 9 0 1 2 3 4| +-+-+-+-+-+-+-+-+-+ + ";
 		assertEquals(expected, output);
 		
 	}
