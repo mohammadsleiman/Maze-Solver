@@ -39,10 +39,10 @@ public class mazeTester {
 		program.BreadthFirstSearch();
 		output = program.printMazeString();
 		System.out.println(program.printMazeString());
-      String expected = "+ +-+-+-+ |# # # #| +-+-+-+ + |   |# #| +-+ + +-+ | | |# #| + + +-+ + |      #| +-+-+-+ +";
-		//String expected = "+ +-+-+-+ |# # # #| +-+-+-+ + |   |# #| +-+ + +-+ | | |# #| + + +-+ + |      #| +-+-+-+ +";
+          //String expected = "+ +-+-+-+ |0 1 2 3| +-+-+-+ + |   |4 3| +-+ + +-+ | | |5 6| + + +-+ + |    8 7| +-+-+-+ +";
+		String expected = "+ +-+-+-+ |# # # #| +-+-+-+ + |   |# #| +-+ + +-+ | | |# #| + + +-+ + |      #| +-+-+-+ +";
 		assertEquals(expected, output);
-		
+		//String expected = "+ +-+-+-+ |# # # #| +-+-+-+ + |   |# #| +-+ + +-+ | | |# #| + + +-+ + |      #| +-+-+-+ +";
 	}
 
 	@Test

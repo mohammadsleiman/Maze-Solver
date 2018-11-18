@@ -13,14 +13,14 @@ public class Maze {
 	String[] MazeString; // The Array of Strings containing each printable line of our maze
 	public int time;
 
-	public String getMazeString() //Gets the Maze String; for J-Unit purposes
+	public String getMazeString() // Gets the Maze String; for J-Unit purposes
 	{
 		String s = Arrays.toString(MazeString);
 		System.out.println("This is getMazeString: " + s);
 		return s;
 	}
 
-	public Maze(int MazeDimension) //Creates an instance of Maze where you can define its size 
+	public Maze(int MazeDimension) // Creates an instance of Maze where you can define its size
 	{
 
 		this.MazeDimension = MazeDimension;
@@ -29,7 +29,7 @@ public class Maze {
 		fillMaze();
 		connectMaze();
 		createMaze();
-		
+
 		BreadthFirstSearch();
 		printMazeString();
 		createFastestSearchMazeString();
@@ -40,23 +40,19 @@ public class Maze {
 		printMazeString();
 
 		/*
-		createFastestSearchMazeString();
-		printMazeString();
-
-		System.out.println(" ");
-
-		createSearchedMazeString();
-		BreadthFirstSearch();
-		printMazeString();
-
-		System.out.println(" ");
-
-
-		System.out.println(" ");
-
-		DepthFirstSearch();
-		*/
-		
+		 * createFastestSearchMazeString(); printMazeString();
+		 * 
+		 * System.out.println(" ");
+		 * 
+		 * createSearchedMazeString(); BreadthFirstSearch(); printMazeString();
+		 * 
+		 * System.out.println(" ");
+		 * 
+		 * 
+		 * System.out.println(" ");
+		 * 
+		 * DepthFirstSearch();
+		 */
 
 	}
 
@@ -155,11 +151,12 @@ public class Maze {
 		time = 0;
 		DepthFirstSearchVisit(NodeMaze[0]);
 		createSearchedMazeString();
+		//System.out.println("This is MazeString in the DFS CLASSS : " + MazeString.toString());
 		return MazeString;
-		
+
 	}
 
-	void DepthFirstSearchVisit(Node n) //DFS visits all the nodes to traverse the maze
+	void DepthFirstSearchVisit(Node n) // DFS visits all the nodes to traverse the maze
 	{
 		n.setSeen(true);
 		time++;
@@ -176,7 +173,7 @@ public class Maze {
 
 	}
 
-	String[] BreadthFirstSearch() //BFS traversal
+	String[] BreadthFirstSearch() // BFS traversal
 	{
 		unSeeMaze();
 		Queue<Node> BFSqueue = new LinkedList<Node>();
@@ -198,13 +195,14 @@ public class Maze {
 			}
 
 		}
-		
+
 		createSearchedMazeString();
+		System.out.println("This is MazeString in the BFS CLASSS!!!!!!!!!!!!! : " + getMazeString());
 		return MazeString;
-		
-		//String str = Arrays.toString(MazeString);
-	//	System.out.println("MAZESTRING BFS AS A STRING: " + str);
-		
+
+		// String str = Arrays.toString(MazeString);
+		// System.out.println("MAZESTRING BFS AS A STRING: " + str);
+
 	}
 
 	void unSeeMaze() // make all nodes 'not visited yet'
@@ -218,8 +216,7 @@ public class Maze {
 		}
 	}
 
-	
-	String[] createMazeString() {  //creates AND PRINTS MazeString Array that shows just the maze
+	String[] createMazeString() { // creates AND PRINTS MazeString Array that shows just the maze
 		int printHeight = (MazeDimension * 2) + 1;
 		int MazeIndex = 0;
 		int tempIndex = 0;
@@ -292,7 +289,7 @@ public class Maze {
 			}
 
 		}
-		
+
 		printMazeString();
 		return MazeString;
 
@@ -311,14 +308,24 @@ public class Maze {
 													// the shortest path
 			for (int i = 0; i < n.getConnectedNeighborsList().size(); i++) // search our current Nodes' neighbors
 			{
-				if (n.getConnectedNeighborsList().get(i).getDiscovered() < smallestNeighbor.getDiscovered()) // checks for a neighbor that is discovered earlier in the BFS search
+				if (n.getConnectedNeighborsList().get(i).getDiscovered() < smallestNeighbor.getDiscovered()) // checks
+																												// for a
+																												// neighbor
+																												// that
+																												// is
+																												// discovered
+																												// earlier
+																												// in
+																												// the
+																												// BFS
+																												// search
 				{
 					smallestNeighbor = n.getConnectedNeighborsList().get(i); // updates the new neighbor with the
 																				// smallest 'discovered' value
 				}
 
 			}
-			
+
 			n = smallestNeighbor; // sets n to new, earlier in the path node
 		}
 
@@ -326,7 +333,8 @@ public class Maze {
 		return shortestPathSet;
 	}
 
-	String[] createFastestSearchMazeString() { //Creates AND PRINTS MazeString with fastest path solution using "#' as the pathway
+	String[] createFastestSearchMazeString() { // Creates AND PRINTS MazeString with fastest path solution using "#' as
+												// the pathway
 		BreadthFirstSearch();
 
 		HashSet<Integer> shortestPathVals = findShortestPathIndex();
@@ -412,12 +420,12 @@ public class Maze {
 			}
 
 		}
-		
+
 		return MazeString;
-		
+
 	}
 
-	String printMazeString() { //prints mazeString
+	String printMazeString() { // prints mazeString
 		String maze = "";
 		for (int i = 0; i < MazeString.length; i++) {
 			maze = maze + MazeString[i] + " ";
@@ -427,7 +435,7 @@ public class Maze {
 		return maze;
 	}
 
-	void createSearchedMazeString() {  //Creates MazeString that shows the BFS/DFS steps
+	void createSearchedMazeString() { // Creates MazeString that shows the BFS/DFS steps
 		int printHeight = (MazeDimension * 2) + 1;
 		int MazeIndex = 0;
 		int tempIndex = 0;
@@ -510,10 +518,9 @@ public class Maze {
 			}
 
 		}
-		
+
 	}
 
-	
 	public static void main(String[] args) {
 
 		Maze m1 = new Maze(4);
@@ -522,5 +529,5 @@ public class Maze {
 		System.out.println("program ended");
 
 	}
-	
+
 }
