@@ -21,17 +21,6 @@ public class Maze {
 		fillMaze();
 		connectMaze();
 		createMaze();
-		
-		/*
-		BreadthFirstSearch();
-		printMazeString();
-		createFastestSearchMazeString();
-		printMazeString();
-		DepthFirstSearch();
-		printMazeString();
-		createFastestSearchMazeString();
-		printMazeString();
-		*/
 
 	}
 
