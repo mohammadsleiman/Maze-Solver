@@ -27,9 +27,10 @@ public class mazeTester {
 	public void test1() //tests a size 4 maze's DFS
 	{
 		program = new Maze(4); // new maze of size 4
-
-		output = program.getMazeString();
-		String expected = "[+ +-+-+-+, |1 2 3 4|, +-+-+-+ +, |8 7|6 5|, +-+ + +-+, |3|6|7 8|, + + +-+ +, |2 1 0 9|, +-+-+-+ +]";
+		program.DepthFirstSearch();
+		output = program.printMazeString();
+		System.out.println(program.printMazeString());
+		String expected = "+ +-+-+-+ |1 2 3 4| +-+-+-+ + |8 7|6 5| +-+ + +-+ |3|6|7 8| + + +-+ + |2 1 0 9| +-+-+-+ + ";
 		
 		assertEquals(expected, output);
 

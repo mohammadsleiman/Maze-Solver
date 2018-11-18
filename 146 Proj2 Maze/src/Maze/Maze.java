@@ -29,6 +29,15 @@ public class Maze {
 		fillMaze();
 		connectMaze();
 		createMaze();
+		
+		BreadthFirstSearch();
+		printMazeString();
+		createFastestSearchMazeString();
+		printMazeString();
+		DepthFirstSearch();
+		printMazeString();
+		createFastestSearchMazeString();
+		printMazeString();
 
 		/*
 		createFastestSearchMazeString();
@@ -146,7 +155,6 @@ public class Maze {
 		time = 0;
 		DepthFirstSearchVisit(NodeMaze[0]);
 		createSearchedMazeString();
-		printMazeString();
 		return MazeString;
 		
 	}
@@ -192,7 +200,6 @@ public class Maze {
 		}
 		
 		createSearchedMazeString();
-		printMazeString();
 		return MazeString;
 		
 		//String str = Arrays.toString(MazeString);
@@ -212,8 +219,7 @@ public class Maze {
 	}
 
 	
-
-	void createMazeString() {  //creates MazeString Array that shows just the maze
+	String[] createMazeString() {  //creates AND PRINTS MazeString Array that shows just the maze
 		int printHeight = (MazeDimension * 2) + 1;
 		int MazeIndex = 0;
 		int tempIndex = 0;
@@ -286,6 +292,9 @@ public class Maze {
 			}
 
 		}
+		
+		printMazeString();
+		return MazeString;
 
 	}
 
@@ -317,7 +326,7 @@ public class Maze {
 		return shortestPathSet;
 	}
 
-	void createFastestSearchMazeString() { //Creates MazeString with fastest path solution using "#' as the pathway
+	String[] createFastestSearchMazeString() { //Creates AND PRINTS MazeString with fastest path solution using "#' as the pathway
 		BreadthFirstSearch();
 
 		HashSet<Integer> shortestPathVals = findShortestPathIndex();
@@ -403,12 +412,19 @@ public class Maze {
 			}
 
 		}
+		
+		return MazeString;
+		
 	}
 
-	void printMazeString() { //prints mazeString
+	String printMazeString() { //prints mazeString
+		String maze = "";
 		for (int i = 0; i < MazeString.length; i++) {
+			maze = maze + MazeString[i] + " ";
 			System.out.println(MazeString[i]);
 		}
+		System.out.println(" ");
+		return maze;
 	}
 
 	void createSearchedMazeString() {  //Creates MazeString that shows the BFS/DFS steps
@@ -494,7 +510,7 @@ public class Maze {
 			}
 
 		}
-
+		
 	}
 
 	
