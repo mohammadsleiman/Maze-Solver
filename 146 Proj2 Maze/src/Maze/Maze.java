@@ -516,7 +516,7 @@ public class Maze {
 	
 	public static void main(String[] args) {
 
-		Maze m1 = new Maze(3);
+		Maze m1 = new Maze(4);
 		m1.getMazeString();
 
 		System.out.println("program ended");

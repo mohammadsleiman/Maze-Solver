@@ -1,9 +1,7 @@
 package Maze;
 
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,14 +15,12 @@ public class mazeTester {
 	@Before
 	public void setUp() throws Exception {
 
-		program = null; 
-						// Clears maze / needed??
-						// Normally I'd initiate the maze here, but the size needs to change
+		program = null;
 
 	}
 
 	@Test
-	public void test1() //tests a size 4 maze's DFS
+	public void test1A() //tests a size 4 maze's DFS
 	{
 		program = new Maze(4); // new maze of size 4
 		program.DepthFirstSearch();
@@ -35,53 +31,43 @@ public class mazeTester {
 		assertEquals(expected, output);
 
 	}
-
-	// test 1, size 4 maze
+	
 	@Test
-	public void test2() {
-
+	public void test1B() //tests a size 4 maze's BFS
+	{
 		program = new Maze(4); // new maze of size 4
+		program.BreadthFirstSearch();
+		output = program.printMazeString();
+		System.out.println(program.printMazeString());
+      String expected = "+ +-+-+-+ |# # # #| +-+-+-+ + |   |# #| +-+ + +-+ | | |# #| + + +-+ + |      #| +-+-+-+ +";
+		//String expected = "+ +-+-+-+ |# # # #| +-+-+-+ + |   |# #| +-+ + +-+ | | |# #| + + +-+ + |      #| +-+-+-+ +";
+		assertEquals(expected, output);
 		
-		String[] expected = {"+ +-+-+-+\r\n" , 
-				"|# # # #|\r\n" , 
-				"+-+-+-+ +\r\n" , 
-				"|   |# #|\r\n" ,
-				"+-+ + +-+\r\n" , 
-				"| | |# #|\r\n" , 
-				"+ + +-+ +\r\n" , 
-				"|      #|\r\n" , 
-				"+-+-+-+ +"};
-		output = null;
-		assertArrayEquals(expected, output);
 	}
 
-	// test 2, size 5 maze
 	@Test
-	public void test3() {
+	public void test2A() //tests a size 10 maze's DFS
+	{
+		program = new Maze(10); // new maze of size 10
+		program.DepthFirstSearch();
+		output = program.printMazeString();
+		System.out.println(program.printMazeString());
+		String expected = "+ +-+-+-+-+-+-+-+-+-+ |1 2 3 4 7 8 9 0 1 2| +-+-+-+ +-+-+-+ +-+ + |6|1 0|5|8 7|8 7|0|3| + + + +-+-+ + +-+ +-+ |3 2|9 2 3 6|9|0|3 4| + +-+ +-+ +-+ + + + + |4|7 8 5|4|1 0|9 2|5| +-+ +-+ +-+ +-+ +-+ + |5 6|1|6 7|2 7 8|7 6| + +-+ +-+ + +-+-+ +-+ |4 3 0|1|8|3 4|7|8 9| +-+-+ + +-+-+-+ +-+ + |1|0 9|0 9 8|9 6 3 0| + +-+ + +-+ + +-+ + + |0|7 8|3|4 3|0|1|4|1| + + + + + + + + +-+-+ |9 8|3|4|5|2 1|0|9|6| + + +-+ +-+-+-+ + + + |4|7 6 5 6 7 8 9 4 5| +-+-+-+-+-+-+-+-+-+ + ";
+		
+		assertEquals(expected, output);
 
-		program = new Maze(15); // new maze of size 5
-		String[] expected = { "+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+\r\n" + 
-						   	  "|# # # # # # # # # #|   |     |\r\n" +
-						   	  "+-+-+-+ +-+-+-+-+-+ + +-+ +-+-+\r\n" + 
-						   	  "|   | | |   |# # # #|     |   |\r\n" + 
-						   	  "+ + + +-+ +-+ +-+-+-+-+ +-+-+ +\r\n" + 
-						   	  "| |   |     |#| |# # # # # # #|\r\n" + 
-						   	  "+ + +-+ + +-+ + + + +-+ +-+-+ +\r\n" + "| |     | |# #|# #| | | | |# #|\r\n"
-				+ "+ +-+-+-+ + +-+ +-+-+ +-+ + +-+\r\n" + "| |   |   |# # #|   | |# #|# #|\r\n"
-				+ "+ + + + + + +-+-+ +-+ + + +-+ +\r\n" + "|   | | | |   |   |   |#|# # #|\r\n"
-				+ "+ +-+ + +-+-+-+-+ + + + +-+ + +\r\n" + "| |   |           | |# #| | | |\r\n"
-				+ "+ +-+-+-+-+-+-+-+ +-+ +-+ +-+-+\r\n" + "| |   | |         |# #|       |\r\n"
-				+ "+ + +-+ + +-+ +-+ + +-+-+-+ +-+\r\n" + "|   |     | |   | |#|# # #|   |\r\n"
-				+ "+-+-+-+ + + +-+ +-+ + +-+ + +-+\r\n" + "|   |   |     |   |# #|# #|   |\r\n"
-				+ "+ +-+-+ +-+-+ + +-+ +-+ +-+ +-+\r\n" + "|     | | |   |   | | |# #|   |\r\n"
-				+ "+ +-+ + + + +-+-+-+-+ +-+ + + +\r\n" + "| |   |   |     |   |   |#| | |\r\n"
-				+ "+-+ +-+ + + +-+ + +-+ + + +-+ +\r\n" + "|       | |   | |   | | |# # #|\r\n"
-				+ "+-+ +-+-+-+-+ + + +-+ +-+-+-+ +\r\n" + "|     |   |   |           |# #|\r\n"
-				+ "+ + +-+ +-+-+ +-+-+-+-+-+ + +-+\r\n" + "| |       |       |        # #|\r\n"
-				+ "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ +" };
-		output = program.getMazeString();
-		assertArrayEquals(expected, output);
 	}
 
+	@Test
+	public void test2B() //tests a size 10 maze's BFS
+	{
+		program = new Maze(10); // new maze of size 10
+		program.BreadthFirstSearch();
+		output = program.printMazeString();
+		System.out.println(program.printMazeString());
+		String expected = "";
+		assertEquals(expected, output);
+		
+	}
 
 }
