@@ -17,7 +17,8 @@ public class mazeTester {
 	@Before
 	public void setUp() throws Exception {
 
-		program = null; // Clears maze / needed??
+		program = null; 
+						// Clears maze / needed??
 						// Normally I'd initiate the maze here, but the size needs to change
 
 	}
@@ -34,20 +35,20 @@ public class mazeTester {
 
 	}
 
-	/* test 1, size 4 maze
+	// test 1, size 4 maze
 	@Test
-	public void test1() {
+	public void test2() {
 
 		program = new Maze(4); // new maze of size 4
 		
-		String[] expected = {"+ +-+-+-+\r\n" + 
-				"|# # # #|\r\n" + 
-				"+-+-+-+ +\r\n" + 
-				"|   |# #|\r\n" + 
-				"+-+ + +-+\r\n" + 
-				"| | |# #|\r\n" + 
-				"+ + +-+ +\r\n" + 
-				"|      #|\r\n" + 
+		String[] expected = {"+ +-+-+-+\r\n" , 
+				"|# # # #|\r\n" , 
+				"+-+-+-+ +\r\n" , 
+				"|   |# #|\r\n" ,
+				"+-+ + +-+\r\n" , 
+				"| | |# #|\r\n" , 
+				"+ + +-+ +\r\n" , 
+				"|      #|\r\n" , 
 				"+-+-+-+ +"};
 		output = null;
 		assertArrayEquals(expected, output);
@@ -55,7 +56,7 @@ public class mazeTester {
 
 	// test 2, size 5 maze
 	@Test
-	public void test2() {
+	public void test3() {
 
 		program = new Maze(15); // new maze of size 5
 		String[] expected = { "+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+\r\n" + 
@@ -81,5 +82,5 @@ public class mazeTester {
 		assertArrayEquals(expected, output);
 	}
 
-*/
+
 }

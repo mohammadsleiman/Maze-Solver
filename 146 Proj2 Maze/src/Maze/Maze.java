@@ -30,6 +30,7 @@ public class Maze {
 		connectMaze();
 		createMaze();
 
+		/*
 		createFastestSearchMazeString();
 		printMazeString();
 
@@ -41,14 +42,12 @@ public class Maze {
 
 		System.out.println(" ");
 
-		createFastestSearchMazeString();
-		printMazeString();
 
 		System.out.println(" ");
 
 		DepthFirstSearch();
-		createSearchedMazeString();
-		printMazeString();
+		*/
+		
 
 	}
 
@@ -141,11 +140,15 @@ public class Maze {
 
 	}
 
-	void DepthFirstSearch() // resets the maze and runs DFS
+	String[] DepthFirstSearch() // resets the maze and runs DFS
 	{
 		unSeeMaze();
 		time = 0;
 		DepthFirstSearchVisit(NodeMaze[0]);
+		createSearchedMazeString();
+		printMazeString();
+		return MazeString;
+		
 	}
 
 	void DepthFirstSearchVisit(Node n) //DFS visits all the nodes to traverse the maze
@@ -165,7 +168,7 @@ public class Maze {
 
 	}
 
-	void BreadthFirstSearch() //BFS traversal
+	String[] BreadthFirstSearch() //BFS traversal
 	{
 		unSeeMaze();
 		Queue<Node> BFSqueue = new LinkedList<Node>();
@@ -188,8 +191,12 @@ public class Maze {
 
 		}
 		
-		String str = Arrays.toString(MazeString);
-		System.out.println("MAZESTRING BFS AS A STRING: " + str);
+		createSearchedMazeString();
+		printMazeString();
+		return MazeString;
+		
+		//String str = Arrays.toString(MazeString);
+	//	System.out.println("MAZESTRING BFS AS A STRING: " + str);
 		
 	}
 
@@ -204,212 +211,9 @@ public class Maze {
 		}
 	}
 
-	void printBFS() //Prints the maze for BFS algorithm
-	{
-		String UnderLine = "+ +-+-+-+";
-		System.out.println(UnderLine);
-		String MainLine = "|";
-		UnderLine = "+";
+	
 
-		for (int i = 0; i < 4; i++) {
-
-			if (NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i + 1])) {
-				if (NodeMaze[i].getDiscovered() > 10) {
-					MainLine = MainLine + " " + (NodeMaze[i].getDiscovered() % 10);
-				} else {
-					MainLine = MainLine + NodeMaze[i].getDiscovered() + " ";
-				}
-
-			} else {
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + "| ";
-			}
-
-		}
-
-		for (int i = 0; i < 4; i++) {
-			if (!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i + 4]))// do not include in last loop
-			{
-				UnderLine = UnderLine + "-";
-			} else {
-				UnderLine = UnderLine + " ";
-			}
-			UnderLine = UnderLine + "+";
-		}
-		System.out.println(MainLine);
-		System.out.println(UnderLine);
-		MainLine = "|";
-		UnderLine = "+";
-
-		for (int i = 4; i < 8; i++) {
-			if (NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i + 1])) {
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + " ";
-
-			} else {
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + "| ";
-			}
-
-		}
-
-		for (int i = 4; i < 8; i++) {
-			if (!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i + 4]))// do not include in last loop
-			{
-				UnderLine = UnderLine + "--";
-			} else {
-				UnderLine = UnderLine + "  ";
-			}
-
-			UnderLine = UnderLine + "+";
-		}
-		System.out.println(MainLine);
-		System.out.println(UnderLine);
-		MainLine = "|";
-		UnderLine = "+";
-
-		for (int i = 8; i < 12; i++) {
-			if (NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i + 1])) {
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + " ";
-
-			} else {
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + "| ";
-			}
-
-		}
-
-		for (int i = 8; i < 12; i++) {
-			if (!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i + 4]))// do not include in last loop
-			{
-				UnderLine = UnderLine + "--";
-			} else {
-				UnderLine = UnderLine + "  ";
-			}
-			UnderLine = UnderLine + "+";
-		}
-		System.out.println(MainLine);
-		System.out.println(UnderLine);
-		MainLine = "|";
-		UnderLine = "+";
-		for (int i = 12; i < 15; i++) {
-			if (NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i + 1])) {
-				if (NodeMaze[i].getDiscovered() < 10) {
-					MainLine = MainLine + " ";
-				}
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + " ";
-
-			} else {
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + "| ";
-			}
-
-		}
-		MainLine = MainLine + "|";
-		UnderLine = "+--+--+--+  +";
-
-		System.out.println(MainLine);
-		System.out.println(UnderLine);
-		MainLine = "| ";
-
-	}
-
-	void printDFS() //Prints the maze for DFS algorithm
-	{
-		String UnderLine = "+  +--+--+--+";
-		System.out.println(UnderLine);
-		String MainLine = "|";
-		UnderLine = "+";
-
-		for (int i = 0; i < 4; i++) {
-			if (NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i + 1])) {
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + " ";
-
-			} else {
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + "| ";
-			}
-
-		}
-
-		for (int i = 0; i < 4; i++) {
-			if (!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i + 4]))// do not include in last loop
-			{
-				UnderLine = UnderLine + "--";
-			} else {
-				UnderLine = UnderLine + "  ";
-			}
-			UnderLine = UnderLine + "+";
-		}
-		System.out.println(MainLine);
-		System.out.println(UnderLine);
-		MainLine = "|";
-		UnderLine = "+";
-
-		for (int i = 4; i < 8; i++) {
-			if (NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i + 1])) {
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + " ";
-
-			} else {
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + "| ";
-			}
-
-		}
-
-		for (int i = 4; i < 8; i++) {
-			if (!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i + 4]))// do not include in last loop
-			{
-				UnderLine = UnderLine + "--";
-			} else {
-				UnderLine = UnderLine + "  ";
-			}
-
-			UnderLine = UnderLine + "+";
-		}
-		System.out.println(MainLine);
-		System.out.println(UnderLine);
-		MainLine = "|";
-		UnderLine = "+";
-
-		for (int i = 8; i < 12; i++) {
-			if (NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i + 1])) {
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + " ";
-
-			} else {
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + "| ";
-			}
-
-		}
-
-		for (int i = 8; i < 12; i++) {
-			if (!NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i + 4]))// do not include in last loop
-			{
-				UnderLine = UnderLine + "--";
-			} else {
-				UnderLine = UnderLine + "  ";
-			}
-			UnderLine = UnderLine + "+";
-		}
-		System.out.println(MainLine);
-		System.out.println(UnderLine);
-		MainLine = "|";
-		UnderLine = "+";
-		for (int i = 12; i < 15; i++) {
-			if (NodeMaze[i].getConnectedNeighbors().contains(NodeMaze[i + 1])) {
-				if (NodeMaze[i].getDiscovered() < 10) {
-					MainLine = MainLine + " ";
-				}
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + " ";
-
-			} else {
-				MainLine = MainLine + NodeMaze[i].getDiscovered() + "| ";
-			}
-
-		}
-		MainLine = MainLine + "|";
-		UnderLine = "+--+--+--+  +";
-
-		System.out.println(MainLine);
-		System.out.println(UnderLine);
-		MainLine = "| ";
-
-	}
-
-	void createMazeString() {
+	void createMazeString() {  //creates MazeString Array that shows just the maze
 		int printHeight = (MazeDimension * 2) + 1;
 		int MazeIndex = 0;
 		int tempIndex = 0;
@@ -498,24 +302,14 @@ public class Maze {
 													// the shortest path
 			for (int i = 0; i < n.getConnectedNeighborsList().size(); i++) // search our current Nodes' neighbors
 			{
-				if (n.getConnectedNeighborsList().get(i).getDiscovered() < smallestNeighbor.getDiscovered()) // checks
-																												// for a
-																												// neighbor
-																												// of n
-																												// that
-																												// is
-																												// 'discovered'
-																												// earlier
-																												// in
-																												// the
-																												// BFS
-																												// search
+				if (n.getConnectedNeighborsList().get(i).getDiscovered() < smallestNeighbor.getDiscovered()) // checks for a neighbor that is discovered earlier in the BFS search
 				{
 					smallestNeighbor = n.getConnectedNeighborsList().get(i); // updates the new neighbor with the
 																				// smallest 'discovered' value
 				}
 
 			}
+			
 			n = smallestNeighbor; // sets n to new, earlier in the path node
 		}
 
@@ -523,7 +317,7 @@ public class Maze {
 		return shortestPathSet;
 	}
 
-	void createFastestSearchMazeString() {
+	void createFastestSearchMazeString() { //Creates MazeString with fastest path solution using "#' as the pathway
 		BreadthFirstSearch();
 
 		HashSet<Integer> shortestPathVals = findShortestPathIndex();
@@ -611,13 +405,13 @@ public class Maze {
 		}
 	}
 
-	void printMazeString() {
+	void printMazeString() { //prints mazeString
 		for (int i = 0; i < MazeString.length; i++) {
 			System.out.println(MazeString[i]);
 		}
 	}
 
-	void createSearchedMazeString() {
+	void createSearchedMazeString() {  //Creates MazeString that shows the BFS/DFS steps
 		int printHeight = (MazeDimension * 2) + 1;
 		int MazeIndex = 0;
 		int tempIndex = 0;
@@ -703,13 +497,14 @@ public class Maze {
 
 	}
 
+	
 	public static void main(String[] args) {
 
-		Maze m1 = new Maze(4);
+		Maze m1 = new Maze(3);
 		m1.getMazeString();
 
 		System.out.println("program ended");
 
 	}
-
+	
 }
